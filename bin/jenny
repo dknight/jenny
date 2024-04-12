@@ -43,7 +43,7 @@ fi
 [ "$(which ggrep 2>/dev/null)" ] && GREP=$(which ggrep) || GREP=$(which grep)
 
 function usage() {
-  echo "$(basename $0) usage:" && grep " .)\ #" $0 | sed 's/) #//'  | sed 's/\ */   -/' | sed 's/ | \*//'
+  echo "$(basename $0) usage:" && grep " .)\s#" $0 | sed 's/) #//'  | sed 's/\ */   -/' | sed 's/ | \*//'
   exit 0
 }
 

@@ -53,7 +53,7 @@ function is_installed() {
 
 function get_total_post_count() {
   local list=("$@")
-	local non_draft=($(printf "%s\n" "${list[@]}" | $GREP -E '^[0-9]{4}\-[0-9]{2}\-[0-9]{2}(.*)'))
+	local non_draft=($(printf "%s\n" "${list[@]}" | $GREP -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}(.*)'))
 	local count=0
   for f1 in "${non_draft[@]}"; do
 		if ! is_scheduled "$f1"; then
@@ -115,11 +115,11 @@ function get_timestamp() {
 }
 
 function get_post_date() {
-  echo $(get_timestamp "$1") | $SED -e 's#\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\)#\2/\3#'
+  echo $(get_timestamp "$1") | $SED -e 's#\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\)#\1/\2/\3#'
 }
 
 function get_post_date_full() {
-  echo $(get_timestamp "$1") | $SED -e 's#\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\)#\1\ \2\-\3#'
+  echo $(get_timestamp "$1") | $SED -e 's#\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\)#\1\ \2-\3#'
 }
 
 function get_post_date_int() {
@@ -177,8 +177,8 @@ function is_changed() {
 }
 
 function get_title() {
-  echo $($GREP -E "^\#\ (.*?)" "$1" | \
-    $SED 's/^\#\ \(.*\)/\1/' | \
+  echo $($GREP -E "^#\s(.*?)" "$1" | \
+    $SED 's/^#\s\(.*\)/\1/' | \
     $SED -r 's/\\(.)/\1/g' )
 }
 
